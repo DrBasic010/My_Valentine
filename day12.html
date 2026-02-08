@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hug Day - Valentine's Week</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body data-day="12">
+
+    <main>
+        <div class="timeline-container">
+            <!-- Feb 12 -->
+            <div class="day-card" id="day-12">
+                <div class="date-badge">Feb 12</div>
+                <h2>🤗 Hug Day</h2>
+                <div style="position: relative; display: inline-block; max-width: 80%; margin-bottom: 40px; margin-top: 30px; clip-path: inset(-100% -100% 0% -100%);">
+                    <img src="Images/cat_hug1.png" alt="Cat giving a hug" style="width: 100%; border-radius: 15px; border: 2px solid var(--primary-color); display: block;">
+                    <img src="Images/cat_hug2.png" alt="Hug Overlay" style="position: absolute; bottom: -38%; left: -48%; width: 200%; height: auto; pointer-events: none; z-index: 2; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));">
+                </div>
+                <p class="romantic-text">Sending you a big, warm hug to let you know how much you mean to me!</p>
+                <div class="button-container">
+                    <button class="yes-button">Accept</button>
+                    <button class="no-button">Deny</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation-controls">
+            <button id="prev-btn" class="nav-btn">Previous</button>
+            <button id="next-btn" class="nav-btn">Next</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>Made with <span id="secret-heart" style="cursor: pointer;">❤️</span> by Your's Truly Mr.Fat Cat.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

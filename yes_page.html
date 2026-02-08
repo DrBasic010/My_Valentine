@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yay!</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            flex-direction: column;
+        }
+        h1 {
+            font-size: 4rem;
+            color: #d90429;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hehehe, I knew it! ❤️</h1>
+    <p>Thank you for accepting! 😊</p>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        if (urlParams.get('final') === 'true') {
+            document.querySelector('p').innerText = "Happy Valentine's Day! ❤️";
+        } else {
+            const nextDay = urlParams.get('next') || 9;
+            setTimeout(() => {
+                window.location.href = `day${nextDay}.html`;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

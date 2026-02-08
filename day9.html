@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolate Day - Valentine's Week</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Dark Chocolate & Starry Night Theme */
+        body {
+            --bg-gradient: linear-gradient(135deg, #1a0505 0%, #3e1e1e 100%);
+            --text-color: #fff5e6;
+            overflow-x: hidden;
+        }
+        .day-card {
+            background: rgba(30, 10, 10, 0.7);
+            border-color: #8b4513;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+        }
+        h2 {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        .star {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 10px #fff, 0 0 20px #ffd700; }
+        }
+    </style>
+</head>
+<body data-day="9">
+
+    <main>
+        <div class="timeline-container">
+            <!-- Feb 9 -->
+            <div class="day-card" id="day-9">
+                <div class="date-badge">Feb 9</div>
+                <h2>🍫 Chocolate Day</h2>
+                <img src="Images/cat_chocolate.png" alt="Cat with chocolate" style="max-width: 100%; border-radius: 15px; margin-bottom: 15px; border: 2px solid var(--primary-color);">
+                <p class="romantic-text">For you my angel !</p>
+                <div class="button-container">
+                    <button class="yes-button">Accept</button>
+                    <button class="no-button">Deny</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation-controls">
+            <button id="prev-btn" class="nav-btn">Previous</button>
+            <button id="next-btn" class="nav-btn">Next</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>Made with <span id="secret-heart" style="cursor: pointer;">❤️</span> by Your's Truly Mr.Fat Cat.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Generate Flickering Stars
+        function createStars() {
+            for(let i=0; i<60; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animation = `twinkle ${Math.random() * 2 + 1}s infinite ease-in-out alternate`;
+                document.body.appendChild(star);
+            }
+        }
+        createStars();
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propose Day - Valentine's Week</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Darker theme for Propose Day (Candlelight vibe) */
+        body {
+            --bg-gradient: linear-gradient(135deg, #4a0404 0%, #72092d 100%);
+            --text-color: #ffe6ea;
+        }
+        .day-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: #ff8fa3;
+        }
+        h2 {
+            color: #ff8fa3;
+        }
+        body::before {
+            filter: brightness(0.4);
+        }
+        
+        /* Flying Candles */
+        .candle {
+            position: fixed;
+            width: 12px;
+            height: 40px;
+            background: linear-gradient(to right, #fff, #e0e0e0);
+            border-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .candle::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 6px;
+            background: #222;
+        }
+        .candle::after {
+            content: '';
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 18px;
+            background: radial-gradient(circle at bottom, #fff, #ffcc00, #ff4500);
+            border-radius: 50% 50% 35% 35%;
+            box-shadow: 0 0 10px #ffcc00, 0 0 20px #ff4500, 0 0 40px #ff0000;
+            animation: flicker 0.1s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); opacity: 1; }
+            100% { transform: translateX(-50%) scale(0.9, 1.1); opacity: 0.8; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body data-day="8">
+
+    <main>
+        <div class="timeline-container">
+            <!-- Feb 8 -->
+            <div class="day-card" id="day-8">
+                <div class="date-badge">Feb 8</div>
+                <h2>️🕯️ Propose Day</h2>
+                <img src="Images/cat_date.png" alt="Cat asking for a date" style="max-width: 100%; border-radius: 15px; margin-bottom: 15px; border: 2px solid var(--primary-color);">
+                <p class="romantic-text">My angel, may I have the honor of a date today with you?</p>
+                <div class="button-container">
+                    <button class="yes-button">Yes</button>
+                    <button class="no-button">No</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="navigation-controls">
+            <button id="prev-btn" class="nav-btn">Previous</button>
+            <button id="next-btn" class="nav-btn">Next</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>Made with <span id="secret-heart" style="cursor: pointer;">❤️</span> by Your's Truly Mr.Fat Cat.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Generate Flying Candles
+        function createCandles() {
+            const candleCount = 25;
+            for (let i = 0; i < candleCount; i++) {
+                const candle = document.createElement('div');
+                candle.classList.add('candle');
+                
+                // Random Position & Animation
+                candle.style.left = Math.random() * 100 + 'vw';
+                candle.style.top = Math.random() * 100 + 'vh';
+                candle.style.animation = `float ${Math.random() * 3 + 3}s ease-in-out infinite`;
+                candle.style.animationDelay = `-${Math.random() * 5}s`;
+                candle.style.opacity = Math.random() * 0.5 + 0.5; // Random brightness
+                
+                document.body.appendChild(candle);
+            }
+        }
+        createCandles();
+    </script>
+</body>
+</html>
