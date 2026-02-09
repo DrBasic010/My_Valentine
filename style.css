@@ -355,3 +355,21 @@ body[data-day="11"] .romantic-text {
     border-radius: 50%;
     box-shadow: 0 0 10px var(--star-color, #fff), 0 0 20px var(--star-color, #fff);
 }
+
+/* Fix for loading screen flash: Cover page immediately */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 99999;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+body.loaded::after {
+    opacity: 0;
+}

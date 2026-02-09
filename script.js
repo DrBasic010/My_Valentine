@@ -10,14 +10,66 @@ const init = async () => {
     // Default to 7 if not set (e.g. for index.html)
     const pageDay = parseInt(document.body.getAttribute('data-day')) || 7;
 
+    // Loading Screen Logic
+    let loadingScreen = null;
+    let loadingBar = null;
+
+    loadingScreen = document.createElement('div');
+    Object.assign(loadingScreen.style, {
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'black',
+        zIndex: '100000',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        transition: 'opacity 0.5s ease'
+    });
+
+    const barContainer = document.createElement('div');
+    Object.assign(barContainer.style, {
+        width: '200px',
+        height: '4px',
+        backgroundColor: '#333',
+        borderRadius: '2px',
+        overflow: 'hidden',
+        marginBottom: '15px'
+    });
+
+    loadingBar = document.createElement('div');
+    Object.assign(loadingBar.style, {
+        width: '0%',
+        height: '100%',
+        backgroundColor: '#ff4d6d',
+        transition: 'width 0.5s ease'
+    });
+
+    const loadingText = document.createElement('div');
+    loadingText.textContent = "Checking Cupid's Database...";
+    Object.assign(loadingText.style, {
+        color: 'white',
+        fontFamily: "'Poppins', sans-serif",
+        fontSize: '0.9rem'
+    });
+
+    barContainer.appendChild(loadingBar);
+    loadingScreen.appendChild(barContainer);
+    loadingScreen.appendChild(loadingText);
+    document.body.appendChild(loadingScreen);
+
+    // Start progress animation
+    requestAnimationFrame(() => {
+        loadingBar.style.width = '30%';
+    });
+
     // 1. Security Check: Is this page allowed?
     let isLocked = pageDay !== 7;
 
-    // OPTIMIZATION: Show Day 7 immediately (it's always unlocked)
     const mainContent = document.querySelector('main');
-    if (pageDay === 7 && mainContent) {
-        mainContent.style.display = 'flex';
-    }
 
     // 2. Navigation Logic (Initialize PREV immediately)
     const prevBtn = document.getElementById('prev-btn');
@@ -45,9 +97,13 @@ const init = async () => {
         // REPLACE THIS URL with your actual Google Apps Script Web App URL
         const API_URL = "https://script.google.com/macros/s/AKfycbw__XEPVOk7SpILTfaHf_On_wLtu0MJpWvkm1PPftOwfvG0KRgUUolsm8EfJb7AIqwFJg/exec"; 
         
+        if (loadingBar) loadingBar.style.width = '70%';
+
         // Fetch config from Google Sheet
         const response = await fetch(API_URL);
         configData = await response.json();
+
+        if (loadingBar) loadingBar.style.width = '100%';
     } catch (error) {
         console.error("Error fetching config:", error);
     }
@@ -61,6 +117,15 @@ const init = async () => {
         } else if (currentMonth === 1 && currentDate >= pageDay) { // Feb and date reached
             isLocked = false;
         }
+    }
+
+    // Remove loading screen
+    if (loadingScreen) {
+        loadingScreen.style.opacity = '0';
+        document.body.classList.add('loaded');
+        setTimeout(() => {
+            if (loadingScreen.parentNode) loadingScreen.parentNode.removeChild(loadingScreen);
+        }, 500);
     }
     
     // If locked (and not the landing page Day 7), show locked screen
@@ -98,7 +163,7 @@ const init = async () => {
     }
 
     // Reveal content if allowed
-    if (mainContent && pageDay !== 7) {
+    if (mainContent && !isLocked) {
         mainContent.style.display = 'flex';
     }
 
@@ -280,7 +345,16 @@ const init = async () => {
         const musicWidget = document.createElement('div');
         musicWidget.classList.add('music-widget');
         musicWidget.innerHTML = `
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4wta20PHgwo?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4wta20PHgwo?utm_source=generator" width="100%" height="80" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        `;
+        document.body.appendChild(musicWidget);
+    }
+
+    if (pageDay === 9) {
+        const musicWidget = document.createElement('div');
+        musicWidget.classList.add('music-widget');
+        musicWidget.innerHTML = `
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6BQWmYuo5aO5och7iUg6Oj?utm_source=generator" width="100%" height="80" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         `;
         document.body.appendChild(musicWidget);
     }
