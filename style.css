@@ -357,7 +357,7 @@ body[data-day="11"] .romantic-text {
 }
 
 /* Fix for loading screen flash: Cover page immediately */
-body::after {
+body[data-day]::after {
     content: "";
     position: fixed;
     top: 0;
@@ -370,6 +370,6 @@ body::after {
     pointer-events: none;
 }
 
-body.loaded::after {
+body[data-day].loaded::after {
     opacity: 0;
 }

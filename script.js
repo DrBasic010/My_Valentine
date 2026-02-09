@@ -241,6 +241,34 @@ const init = async () => {
             }
 
             const rect = noBtn.getBoundingClientRect();
+
+            // Day 14 Special: Peeking Effect
+            if (pageDay === 14) {
+                const currentLeft = parseFloat(noBtn.style.left);
+                const isLeft = currentLeft < (viewportWidth / 2);
+                
+                // Determine next side (swap)
+                // If it's the first move, pick random, otherwise swap
+                let nextSide = (moveCount === 0) ? (Math.random() > 0.5 ? 'left' : 'right') : (isLeft ? 'right' : 'left');
+
+                let newLeft;
+                if (nextSide === 'left') {
+                    newLeft = - (rect.width / 2); // Peek from left
+                } else {
+                    newLeft = viewportWidth - (rect.width / 2); // Peek from right
+                }
+
+                // Random height
+                const newTop = Math.random() * (viewportHeight - rect.height - 100) + 50;
+
+                noBtn.style.transition = "all 0.4s ease-out";
+                noBtn.style.left = newLeft + 'px';
+                noBtn.style.top = newTop + 'px';
+                
+                moveCount++;
+                return;
+            }
+            
             // Calculate safe boundaries (keep 20px padding from all edges)
             const maxLeft = viewportWidth - rect.width - 20;
             const maxTop = viewportHeight - rect.height - 20;
@@ -278,6 +306,8 @@ const init = async () => {
 
         let mouseStopTimeout;
         const resetBtnPosition = () => {
+            if (pageDay === 14) return; // Disable reset for Day 14
+            
             clearTimeout(mouseStopTimeout);
             if (noBtn.parentNode === document.body) {
                 mouseStopTimeout = setTimeout(() => {
@@ -298,6 +328,8 @@ const init = async () => {
         yesBtn.addEventListener('click', () => {
             if (pageDay === 7) {
                 createRosePetals();
+            } else if (pageDay === 13) {
+                createKissMarks();
             } else if (pageDay === 14) {
                 window.location.href = 'yes_page.html?final=true';
             } else {
@@ -321,6 +353,35 @@ const init = async () => {
         setTimeout(() => {
             window.location.href = 'day8.html';
         }, 4500);
+    }
+
+    function createKissMarks() {
+        const kissContainer = document.createElement('div');
+        Object.assign(kissContainer.style, {
+            position: 'fixed',
+            top: '0',
+            left: '0',
+            width: '100%',
+            height: '100%',
+            pointerEvents: 'none',
+            zIndex: '100000'
+        });
+        document.body.appendChild(kissContainer);
+
+        for (let i = 0; i < 30; i++) {
+            setTimeout(() => {
+                const kiss = document.createElement('div');
+                kiss.textContent = '💋';
+                kiss.style.cssText = `position: absolute; font-size: ${Math.random() * 50 + 40}px; left: ${Math.random() * 90 + 5}vw; top: ${Math.random() * 90 + 5}vh; transform: translate(-50%, -50%) rotate(${Math.random() * 60 - 30}deg) scale(0); opacity: 0; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.27);`;
+                kissContainer.appendChild(kiss);
+                requestAnimationFrame(() => {
+                    kiss.style.transform = kiss.style.transform.replace('scale(0)', 'scale(1)');
+                    kiss.style.opacity = '0.8';
+                });
+            }, i * 100);
+        }
+
+        setTimeout(() => window.location.href = 'day14.html', 4000);
     }
 
     // Secret Admin Login
@@ -355,6 +416,15 @@ const init = async () => {
         musicWidget.classList.add('music-widget');
         musicWidget.innerHTML = `
             <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6BQWmYuo5aO5och7iUg6Oj?utm_source=generator" width="100%" height="80" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        `;
+        document.body.appendChild(musicWidget);
+    }
+
+    if (pageDay === 14) {
+        const musicWidget = document.createElement('div');
+        musicWidget.classList.add('music-widget');
+        musicWidget.innerHTML = `
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/19kUPdKTp85q9RZNwaXM15?utm_source=generator" width="100%" height="80" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         `;
         document.body.appendChild(musicWidget);
     }

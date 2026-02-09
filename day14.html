@@ -5,7 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine's Day!</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Dark Romantic Theme for Valentine's Day */
+        body {
+            --bg-gradient: linear-gradient(135deg, #1a0505 0%, #4a0d1d 100%);
+            --text-color: #ffe6ea;
+        }
+        .day-card {
+            background: rgba(0, 0, 0, 0.5);
+            border-color: #ff4d6d;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        h2 {
+            color: #ff4d6d;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.4);
+        }
+        body::before {
+            opacity: 0.1;
+        }
+        .romantic-text {
+            color: #fff0f3;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+    </style>
 </head>
 <body data-day="14">
 
@@ -15,7 +38,8 @@
             <div class="day-card special" id="day-14">
                 <div class="date-badge">Feb 14</div>
                 <h2>💘 Valentine's Day</h2>
-                <p>Will you be my Valentine?</p>
+                <img src="Images/cat_day.png" alt="Cat giving a kiss" style="max-width: 100%; border-radius: 15px; margin-bottom: 15px; border: 2px solid var(--primary-color);">
+                <p class="romantic-text">Will you be my Valentine?</p>
                 <div class="button-container">
                     <button class="yes-button">Yes</button>
                     <button class="no-button">No</button>
